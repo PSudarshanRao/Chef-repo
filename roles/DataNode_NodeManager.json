@@ -1,0 +1,5 @@
+{
+  "name" : "DataNode_NodeManager",
+  "description" : "We are DataNode and NodeManager!!",
+  "run_list" : ["recipe[CDH5::jdk]","recipe[CDH5]","recipe[CDH5::configuration]", "recipe[CDH5::services]"]
+}

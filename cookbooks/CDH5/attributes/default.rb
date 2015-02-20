@@ -1,0 +1,14 @@
+default["CDH5"]["daemon_role"] = ["hadoop-hdfs-datanode", "hadoop-yarn-nodemanager"]
+default["CDH5"]["namenode"] = "server161.cloudwick.com"
+default["CDH5"]["yarn-rm"] = "server162.cloudwick.com"
+default["CDH5"]["hdfs-local-dir"] = "/dfs"
+default["CDH5"]["mapred-local-dir"] = "/mapred"
+default["CDH5"]["core"] = {"hadoop.temp.dir" => "/usr/lib/hadoo/tmp", "fs.default.name" => "hdfs://#{node['CDH5']['namenode']}:8020", "io.compression.codecs" => "org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.SnappyCodec", "dfs.nfs.dump.dir" => "/tmp/.hdfs-nfs", "dfs.nfs.exports.allowed.hosts" => "* rw", "hadoop.proxyuser.hdfs.groups" => "*", "hadoop.proxyuser.hdfs.hosts" => "*"}
+default["CDH5"]["hdfs"] = {"dfs.namenode.name.dir" => "#{node['CDH5']['hdfs-local-dir']}/name", "dfs.datanode.data.dir" => "#{node['CDH5']['hdfs-local-dir']}/data","dfs.namenode.acls.enabled" => "true"}
+default["CDH5"]["mapred"] = {"mapreduce.framework.name" => "yarn", "mapreduce.cluster.local.dir" => "#{node['CDH5']['mapred-local-dir']}/local", "mapreduce.cluster.temp.dir" => "#{node['CDH5']['mapred-local-dir']}/tmp", "mapreduce.task.io.sort.mb" => "750", "mapreduce.map.sort.spill.percent" => "0.90","mapreduce.job.maps" => "1", "mapreduce.map.memory.mb" => "3072", "mapreduce.reduce.memory.mb" => "4096", "mapreduce.map.java.opts" => "-Xmx2048m", "mapreduce.reduce.java.opts" => "-Xmx3072m"}
+default["CDH5"]["yarn"] = {"yarn.resourcemanager.hostname" => "#{node['CDH5']['yarn-rm']}", "yarn.nodemanager.aux-services" => "mapreduce_shuffle", "mapreduce.job.hdfs-servers" => "hdfs://#{node['CDH5']['namenode']}:8020", "yarn.nodemanager.aux-services.mapreduce.shuffle.class" => "org.apache.hadoop.mapred.ShuffleHandler", "yarn.resourcemanager.resource-tracker.address" => "#{node['CDH5']['yarn-rm']}:8025", "yarn.resourcemanager.scheduler.address" => "#{node['CDH5']['yarn-rm']}:8030", "yarn.resourcemanager.address" => "#{node['CDH5']['yarn-rm']}:8040","yarn.application.classpath" => "$HADOOP_CONF_DIR,
+        $HADOOP_COMMON_HOME/*,$HADOOP_COMMON_HOME/lib/*,
+        $HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,
+        $HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,
+        $HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*", "yarn.nodemanager.remote-app-log-dir" => "hdfs://#{node['CDH5']['namenode']}:8020/var/log/hadoop-yarn/apps", "yarn.nodemanager.log-dirs" => "file:///var/log/hadoop-yarn/containers", "yarn.nodemanager.local-dirs" => "file:///var/lib/hadoop-yarn/cache/${user.name}/nm-local-dir", "yarn.log-aggregation-enable" => "true", "yarn.scheduler.minimum-allocation-mb" => "2048", "yarn.scheduler.maximum-allocation-mb" => "4096", "yarn.scheduler.minimum-allocation-vcores" => "1", "yarn.scheduler.maximum-allocation-vcores" => "3", "yarn.nodemanager.resource.memory-mb" => "24576", "yarn.nodemanager.resource.cpu-vcores" => "12"
+  }

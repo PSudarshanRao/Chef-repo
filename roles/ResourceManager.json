@@ -1,0 +1,10 @@
+{
+  "name" : "ResourceManager",
+  "description": "This is ResourceManager",
+  "override_attributes" : {
+    "CDH5" :{
+    "daemon_role" : ["hadoop-yarn-resourcemanager"]
+    }
+  },
+  "run_list" : ["recipe[CDH5::jdk]","recipe[CDH5]", "recipe[CDH5::configuration]","recipe[CDH5::services]"]
+}

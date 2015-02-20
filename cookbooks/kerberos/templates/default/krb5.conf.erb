@@ -1,0 +1,19 @@
+[logging]
+default = FILE:/var/log/krb5lib.log
+kdc = FILE:/var/log/krb5kdc.log
+admin_server = FILE:/var/log/kadmin.log
+[libdefaults]
+default_realm = <%= @realm.upcase %>
+ticket_lifetime = 24h
+renew_lifetime = 7d
+forwardable = true
+dns_lookup_realm = false
+dns_lookup_kdc = false
+[realms]
+CLOUDWICK.COM = {
+kdc = <%= @kdc%>:88
+admin_server= <%= @kdc%>:749
+}
+[domain_realm]
+.<%= @realm%> = <%= @realm.upcase%> 
+<%= @realm%> = <%= @realm.upcase%>
